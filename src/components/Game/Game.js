@@ -4,7 +4,8 @@ import { sample } from '../../utils';
 import { WORDS } from '../../data';
 
 import GuessInput from '../GuessInput'
-import GuessResults from '../GuessResults/GuessResults';
+import GuessResults from '../GuessResults';
+import Banner from '../Banner'
 
 
 // Pick a random word on every pageload.
@@ -18,12 +19,15 @@ function Game() {
 
   function handleSubmitGuess(nextGuess) {
     setGuesses([...guesses, nextGuess])
+    // Check if nextGuess was true or false
+    return result = nextGuess === answer;
   }
 
   return (
     <>
       <GuessResults guesses={guesses} answer={answer} />
       <GuessInput handleSubmitGuess={handleSubmitGuess} />
+      <Banner guesses={guesses} answer={answer} />
     </>
   );
 }
