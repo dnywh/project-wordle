@@ -1,8 +1,8 @@
 import React from 'react';
 
-let status = ""
 
-function BannerText({ guesses, answer }) {
+
+function BannerText({ guesses, answer, status }) {
 
   if (status === 'happy') {
     return (
@@ -18,11 +18,7 @@ function BannerText({ guesses, answer }) {
 }
 
 
-function Banner({ guesses, answer }) {
-
-  if (answer === guesses[guesses.length - 1]) {
-    status = "happy"
-  }
+function Banner({ guesses, answer, status }) {
 
   if (!status) {
     return null

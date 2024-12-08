@@ -3,6 +3,8 @@ import React from 'react';
 import { sample } from '../../utils';
 import { WORDS } from '../../data';
 
+import { NUM_OF_GUESSES_ALLOWED } from '../../constants';
+
 import GuessInput from '../GuessInput'
 import GuessResults from '../GuessResults';
 import Banner from '../Banner'
@@ -13,6 +15,9 @@ const answer = sample(WORDS);
 // To make debugging easier, we'll log the solution in the console.
 console.info({ answer });
 
+// Set an empty status
+let status = ""
+
 function Game() {
 
   const [guesses, setGuesses] = React.useState('')
@@ -20,14 +25,24 @@ function Game() {
   function handleSubmitGuess(nextGuess) {
     setGuesses([...guesses, nextGuess])
     // Check if nextGuess was true or false
-    return result = nextGuess === answer;
+    // return result = nextGuess === answer;
   }
+
+
+  if (answer === guesses[guesses.length - 1]) {
+    status = "happy"
+  }
+
+  if (guesses.length === NUM_OF_GUESSES_ALLOWED) {
+    status = "sad"
+  }
+
 
   return (
     <>
       <GuessResults guesses={guesses} answer={answer} />
-      <GuessInput handleSubmitGuess={handleSubmitGuess} />
-      <Banner guesses={guesses} answer={answer} />
+      <GuessInput handleSubmitGuess={handleSubmitGuess} status={status} />
+      <Banner guesses={guesses} answer={answer} status={status} />
     </>
   );
 }
