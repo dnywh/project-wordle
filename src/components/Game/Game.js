@@ -2,6 +2,7 @@ import React from 'react';
 
 import { sample } from '../../utils';
 import { WORDS } from '../../data';
+import { NUM_OF_GUESSES_ALLOWED } from '../../constants';
 
 import GuessInput from '../GuessInput'
 import GuessResults from '../GuessResults/GuessResults';
@@ -13,42 +14,24 @@ const answer = sample(WORDS);
 console.info({ answer });
 
 function Game() {
+  const [guessCount, setGuessCount] = React.useState(0)
+  const [guesses, setGuesses] = React.useState(Array(NUM_OF_GUESSES_ALLOWED).fill(''))
 
-  const [guesses, setGuesses] = React.useState([
-    {
-      value: 'HORSE',
-      id: 'guess1'
-    },
-    {
-      value: 'CRASH',
-      id: 'guess2'
-    },
-    {
-      value: 'FARBA',
-      id: 'guess3'
-    },
-    {
-      value: 'CRAVE',
-      id: 'guess4'
-    },
-    {
-      value: 'BLACK',
-      id: 'guess5'
-    },
-    {
-      value: 'COBRA',
-      id: 'guess6'
+  function handleSubmitGuess(nextGuess) {
+    if (guessCount < NUM_OF_GUESSES_ALLOWED) {
+      // console.log("Guess number", { nextGuess })
+
+      const nextGuesses = [...guesses]
+      nextGuesses[guessCount] = nextGuess
+      // nextGuesses.addat(0, guess.guess)
+      // nextGuesses.addAtIndex(guess.guess, 0)
+
+      setGuesses(nextGuesses)
+
+      const nextGuessCount = guessCount + 1;
+      setGuessCount(nextGuessCount)
+
     }
-  ])
-
-  function handleSubmitGuess(label) {
-    const nextGuess = {
-      value: label,
-      id: crypto.randomUUID(),
-    }
-    console.log({ nextGuess })
-
-    setGuesses([...guesses, nextGuess])
   }
 
   return (

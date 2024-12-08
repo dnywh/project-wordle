@@ -1,15 +1,15 @@
 import React from 'react';
 
-function Guess({ value, id }) {
+import { range } from '../../utils';
+import { NUM_OF_CHARACTERS } from '../../constants';
+
+function Guess({ guess }) {
   return (
-    <React.Fragment key={id}>
-      <p>{value}</p>
+    <React.Fragment>
       <p className="guess">
-        <span className="cell"></span>
-        <span className="cell"></span>
-        <span className="cell"></span>
-        <span className="cell"></span>
-        <span className="cell"></span>
+        {range(NUM_OF_CHARACTERS).map((index) => (
+          <span key={index} className="cell">{guess[index]}</span>)
+        )}
       </p>
     </React.Fragment>
   );
