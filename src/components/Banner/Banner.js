@@ -1,7 +1,5 @@
 import React from 'react';
 
-
-
 function BannerText({ guesses, answer, status }) {
 
   if (status === 'happy') {
@@ -19,7 +17,6 @@ function BannerText({ guesses, answer, status }) {
 
 
 function Banner({ guesses, answer, status }) {
-
   if (!status) {
     return null
   } else {

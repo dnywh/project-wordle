@@ -16,27 +16,24 @@ const answer = sample(WORDS);
 console.info({ answer });
 
 // Set an empty status
-let status = ""
+// let status = ""
 
 function Game() {
 
   const [guesses, setGuesses] = React.useState('')
+  const [status, setStatus] = React.useState('')
 
   function handleSubmitGuess(nextGuess) {
     setGuesses([...guesses, nextGuess])
     // Check if nextGuess was true or false
-    // return result = nextGuess === answer;
+    if (answer === nextGuess) {
+      setStatus('happy')
+    }
+
+    if ((guesses.length + 1) === NUM_OF_GUESSES_ALLOWED) {
+      setStatus('sad')
+    }
   }
-
-
-  if (answer === guesses[guesses.length - 1]) {
-    status = "happy"
-  }
-
-  if (guesses.length === NUM_OF_GUESSES_ALLOWED) {
-    status = "sad"
-  }
-
 
   return (
     <>
