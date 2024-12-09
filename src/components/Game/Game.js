@@ -3,6 +3,7 @@ import React from 'react';
 import { sample } from '../../utils';
 import { WORDS } from '../../data';
 import { NUM_OF_GUESSES_ALLOWED } from '../../constants';
+import { checkGuess } from '../../game-helpers';
 
 import GuessInput from '../GuessInput'
 import GuessResults from '../GuessResults';
@@ -17,13 +18,14 @@ const answer = sample(WORDS);
 console.info({ answer });
 
 function Game() {
+  // const [answer, setAnswer] = React.useState(() => sample(WORDS));
   const [gameStatus, setGameStatus] = React.useState('running')
-  const [guesses, setGuesses] = React.useState('')
+  const [guesses, setGuesses] = React.useState([])
 
   function handleSubmitGuess(tentativeGuess) {
     const nextGuesses = [...guesses, tentativeGuess]
     setGuesses(nextGuesses)
-    // Check if tentativeGuess was true or false
+    // Check if tentativeGuess was true or falsea
     if (tentativeGuess.toUpperCase() === answer) {
       setGameStatus('won')
     } else if ((nextGuesses.length) >= NUM_OF_GUESSES_ALLOWED) {
@@ -31,11 +33,16 @@ function Game() {
     }
   }
 
+  const validatedGuesses = guesses.map((guess) =>
+    checkGuess(guess, answer)
+  )
+  console.log(validatedGuesses)
+
   return (
     <>
-      <GuessResults guesses={guesses} answer={answer} />
+      <GuessResults validatedGuesses={validatedGuesses} />
       <GuessInput gameStatus={gameStatus} handleSubmitGuess={handleSubmitGuess} />
-      <VirtualKeyboard guesses={guesses} answer={answer} />
+      <VirtualKeyboard validatedGuesses={validatedGuesses} />
 
       {gameStatus === "won" && (<WonBanner numOfGuesses={guesses.length} />)}
       {gameStatus === "lost" && (<LostBanner answer={answer} />)}

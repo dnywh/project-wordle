@@ -1,45 +1,62 @@
 import React from 'react';
 
-import { sample } from '../../utils';
-import { range } from '../../utils';
-import { checkGuess } from '../../game-helpers.js';
-
 const keys = [
-  ['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p'],
-  ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l'],
-  ['z', 'x', 'c', 'v', 'b', 'n', 'm']
-]
+  ['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P'],
+  ['A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L'],
+  ['Z', 'X', 'C', 'V', 'B', 'N', 'M'],
+];
 
-function VirtualKeyboard({ guesses, answer }) {
-  const result = checkGuess(guesses[guesses.length - 1], answer)
-  console.log(result)
+function getStatusByLetter(validatedGuesses) {
+  const statusObj = {}
+  // console.log(statusObj)
+  const allLetters = validatedGuesses.flat();
+  // console.log(allLetters);
 
-  function handleClassUpdate(key) {
-    // let className = sample(['misplaced', 'correct', 'incorrect', '', '', ''])
-    let className = ""
+  allLetters.forEach(({ letter, status }) => {
+    // console.log(letter, status)
+    const currentStatus = statusObj[letter]
 
-    if (!result) {
-      return className
-    } else {
-      range(5).map(num => {
-        // console.log(key, result[num].letter)
-        if (key === result[num].letter) {
-          className = result[num].status
-        }
-      })
-
-      return className
+    if (currentStatus === undefined) {
+      statusObj[letter] = status
+      // console.log(letter, "doesn't have a status yet, taking on ", status)
+      return
     }
 
-  }
+    const statusRanks = {
+      correct: 1,
+      misplaced: 2,
+      incorrect: 3
+    }
+
+    const currentStatusRank = statusRanks[currentStatus]
+    const newStatusRank = statusRanks[status]
+
+    if (newStatusRank < currentStatusRank) {
+      // console.log("better status for ", letter, "going down to ", status, newStatusRank, "was ", currentStatusRank)
+      statusObj[letter] = status
+    }
+    console.log(statusObj)
+    return statusObj
+  })
+
+}
+
+function VirtualKeyboard({ validatedGuesses }) {
+  const statusByLetter = getStatusByLetter(validatedGuesses)
 
   return (
     <div className="keyboard">
       {keys.map((row, index) => (
         <ul key={index}>
-          {row.map((key, index) => (
-            <li key={index} className={handleClassUpdate(key.toUpperCase())}>{key.toUpperCase()}</li>
-          ))}
+          {row.map((letter) => {
+            { console.log(statusByLetter["O"]) } (
+              <li
+                key={letter}
+                className={`letter ${statusByLetter[letter] || ''}`}>
+                {letter}
+              </li>
+            )
+          })}
         </ul>
       ))}
     </div>
