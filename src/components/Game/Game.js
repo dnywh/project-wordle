@@ -35,7 +35,7 @@ function Game() {
     <>
       <GuessResults guesses={guesses} answer={answer} />
       <GuessInput gameStatus={gameStatus} handleSubmitGuess={handleSubmitGuess} />
-      <VirtualKeyboard />
+      <VirtualKeyboard guesses={guesses} answer={answer} />
 
       {gameStatus === "won" && (<WonBanner numOfGuesses={guesses.length} />)}
       {gameStatus === "lost" && (<LostBanner answer={answer} />)}
