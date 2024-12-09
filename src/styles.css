@@ -230,3 +230,43 @@ h1 {
     transform: translateY(0%);
   }
 }
+
+/* New stuff */
+.keyboard {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  align-items: center;
+
+  ul {
+    padding: 0;
+    display: flex;
+    list-style-type: none;
+    gap: 0.25rem;
+
+    li {
+      width: 2rem;
+      height: 2rem;
+      background-color: var(--color-gray-900);
+      border-radius: 0.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      /* text-transform: uppercase; */
+
+      &.incorrect {
+        background: var(--color-gray-300);
+        color: white;
+      }
+      &.correct {
+        background: var(--color-success);
+        color: white;
+      }
+      &.misplaced {
+        background: var(--color-warning);
+        color: white;
+      }
+    }
+  }
+}

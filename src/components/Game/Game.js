@@ -8,6 +8,7 @@ import GuessInput from '../GuessInput'
 import GuessResults from '../GuessResults';
 import WonBanner from '../WonBanner'
 import LostBanner from '../LostBanner'
+import VirtualKeyboard from '../VirtualKeyboard';
 
 
 // Pick a random word on every pageload.
@@ -34,6 +35,7 @@ function Game() {
     <>
       <GuessResults guesses={guesses} answer={answer} />
       <GuessInput gameStatus={gameStatus} handleSubmitGuess={handleSubmitGuess} />
+      <VirtualKeyboard />
 
       {gameStatus === "won" && (<WonBanner numOfGuesses={guesses.length} />)}
       {gameStatus === "lost" && (<LostBanner answer={answer} />)}
