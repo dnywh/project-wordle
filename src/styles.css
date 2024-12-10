@@ -270,3 +270,8 @@ h1 {
     }
   }
 }
+
+.banner button {
+  text-decoration: underline;
+  font-weight: 600;
+}

@@ -8,17 +8,13 @@ const keys = [
 
 function getStatusByLetter(validatedGuesses) {
   const statusObj = {}
-  // console.log(statusObj)
   const allLetters = validatedGuesses.flat();
-  // console.log(allLetters);
 
   allLetters.forEach(({ letter, status }) => {
-    // console.log(letter, status)
     const currentStatus = statusObj[letter]
 
     if (currentStatus === undefined) {
       statusObj[letter] = status
-      // console.log(letter, "doesn't have a status yet, taking on ", status)
       return
     }
 
@@ -32,10 +28,8 @@ function getStatusByLetter(validatedGuesses) {
     const newStatusRank = statusRanks[status]
 
     if (newStatusRank < currentStatusRank) {
-      // console.log("better status for ", letter, "going down to ", status, newStatusRank, "was ", currentStatusRank)
       statusObj[letter] = status
     }
-
   })
 
   return statusObj
