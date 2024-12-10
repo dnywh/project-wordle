@@ -35,10 +35,10 @@ function getStatusByLetter(validatedGuesses) {
       // console.log("better status for ", letter, "going down to ", status, newStatusRank, "was ", currentStatusRank)
       statusObj[letter] = status
     }
-    console.log(statusObj)
-    return statusObj
+
   })
 
+  return statusObj
 }
 
 function VirtualKeyboard({ validatedGuesses }) {
@@ -48,15 +48,13 @@ function VirtualKeyboard({ validatedGuesses }) {
     <div className="keyboard">
       {keys.map((row, index) => (
         <ul key={index}>
-          {row.map((letter) => {
-            { console.log(statusByLetter["O"]) } (
-              <li
-                key={letter}
-                className={`letter ${statusByLetter[letter] || ''}`}>
-                {letter}
-              </li>
-            )
-          })}
+          {row.map((letter) => (
+            <li
+              key={letter}
+              className={`letter ${statusByLetter[letter] || ''}`}>
+              {letter}
+            </li>
+          ))}
         </ul>
       ))}
     </div>

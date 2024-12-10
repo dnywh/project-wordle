@@ -25,7 +25,7 @@ function Game() {
   function handleSubmitGuess(tentativeGuess) {
     const nextGuesses = [...guesses, tentativeGuess]
     setGuesses(nextGuesses)
-    // Check if tentativeGuess was true or falsea
+    // Check if tentativeGuess was true or false
     if (tentativeGuess.toUpperCase() === answer) {
       setGameStatus('won')
     } else if ((nextGuesses.length) >= NUM_OF_GUESSES_ALLOWED) {
@@ -36,7 +36,7 @@ function Game() {
   const validatedGuesses = guesses.map((guess) =>
     checkGuess(guess, answer)
   )
-  console.log(validatedGuesses)
+
 
   return (
     <>
